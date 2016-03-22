@@ -1,17 +1,9 @@
 <?php
 /**
- * Step 1: Clone this repository to your computer
- * Step 2: Run installation script
+ * Step 1: Clone this repository
+ * Step 2: Modify project's parameters in line 157 of this script
+ * Step 3: Run this script
  */
-/**
- * Parameters of project
- */
-$parameters = [
-    'PROJECT'     => 'lemonphp/bee',
-    'PACKAGE'     => 'lemonphp/bee',
-    'NAMESPACE'   => 'Lemon\Bee',
-    'DESCRIPTION' => 'Bee project og LemonPHP Team',
-];
 
 /**
  * Class Installtion
@@ -138,14 +130,13 @@ class Installation
 
         foreach ($this->unusedFiles as $file) {
             $sourceFile = __DIR__ . DIRECTORY_SEPARATOR . $file;
-            if (!is_file($sourceFile)) {
-                continue;
-            }
 
             if (is_dir($sourceFile)) {
                 $deleted = $this->rmdir($sourceFile);
-            } else {
+            } elseif (is_file($sourceFile)) {
                 $deleted = unlink($sourceFile);
+            } else {
+                $deleted = true;
             }
 
             if (!$deleted) {
@@ -158,6 +149,17 @@ class Installation
         exit(0);
     }
 }
+
+/**
+ * Parameters of project
+ * Please change this variable
+ */
+$parameters = [
+    'PROJECT'     => 'lemonphp/bee',
+    'PACKAGE'     => 'lemonphp/bee',
+    'NAMESPACE'   => 'Lemon\Bee',
+    'DESCRIPTION' => 'Bee project og LemonPHP Team',
+];
 
 /**
  * Installing
