@@ -3,7 +3,6 @@
  * Step 1: Clone this repository to your computer
  * Step 2: Run installation script
  */
-
 /**
  * Parameters of project
  */
@@ -50,7 +49,7 @@ class Installation
     ];
 
     /**
-     * Compiler string
+     * A string compiler
      *
      * @param array $matches
      * @return string
@@ -61,6 +60,54 @@ class Installation
             return quotemeta($this->parameters[$matches[1]]);
         }
         return $matches[0];
+    }
+
+    /**
+     * Compile a file
+     *
+     * @param string $file
+     * @return boolean
+     */
+    protected function compileFile($file)
+    {
+        if (false === ($content = file_get_contents($file))) {
+            return false;
+        }
+        $count      = 0;
+        $newContent = preg_replace_callback('/\{\{([A-Z]+)\}\}/', [$this, 'compiler'], $content, -1, $count);
+        if ($count > 0 && false === file_put_contents($file, $newContent)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Remove directory recursively
+     *
+     * @param string $dir
+     * @return boolean
+     */
+    protected function rmdir($dir)
+    {
+        try {
+            $iterator = new \DirectoryIterator($dir);
+            foreach ($iterator as $fileinfo) {
+                if ($fileinfo->isDot()) {
+                    continue;
+                }
+                if ($fileinfo->isDir() && !$this->rmdir($fileinfo->getPathname())) {
+                    return false;
+                }
+                if ($fileinfo->isFile() && !unlink($fileinfo->getPathname())) {
+                    return false;
+                }
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return rmdir($dir);
     }
 
     /**
@@ -80,11 +127,10 @@ class Installation
         foreach ($this->textFiles as $file) {
             $sourceFile = __DIR__ . DIRECTORY_SEPARATOR . $file;
 
-            if (!is_file($sourceFile) || !is_readable($sourceFile) || false === ($content = file_get_contents($sourceFile))) {
+            if (!is_file($sourceFile) || !is_readable($sourceFile)) {
                 continue;
             }
-            $newContent = preg_replace_callback('/\{\{([A-Z]+)\}\}/', [$this, 'compiler'], $content);
-            if (false === file_put_contents($sourceFile, $newContent)) {
+            if (!$this->compileFile($sourceFile)) {
                 echo "Write to file '{$sourceFile}' failure.\n";
                 exit(1);
             }
@@ -97,7 +143,7 @@ class Installation
             }
 
             if (is_dir($sourceFile)) {
-                $deleted = rmdir($sourceFile);
+                $deleted = $this->rmdir($sourceFile);
             } else {
                 $deleted = unlink($sourceFile);
             }
@@ -108,6 +154,7 @@ class Installation
             }
         }
 
+        echo 'Done';
         exit(0);
     }
 }
