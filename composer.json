@@ -1,0 +1,35 @@
+{
+    "name": "{{PACKAGE}}",
+    "version": "1.0.0",
+    "description": "{{DESCRIPTION}}",
+    "license": "MIT",
+    "homepage": "https://github.com/{{PROJECT}}",
+    "support": {
+        "issues": "https://github.com/{{PROJECT}}/issues",
+        "source": "https://github.com/{{PROJECT}}"
+    },
+    "authors": [
+        {
+            "name": "Oanh Nguyen",
+            "email": "oanhnn.bk@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "{{NAMESPACE}}\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "symfony/console": "^3.0",
+        "symfony/event-dispatcher": "^3.0",
+        "pimple/pimple": "~3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.8"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "preferred-install": "dist"
+    }
+}
