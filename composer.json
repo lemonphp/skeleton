@@ -1,7 +1,8 @@
 {
     "name": "{{PACKAGE}}",
-    "version": "1.0.0",
+    "type": "{{TYPE}}",
     "description": "{{DESCRIPTION}}",
+    "keyworks": {{KEYWORDS}},
     "license": "MIT",
     "homepage": "https://github.com/{{PROJECT}}",
     "support": {

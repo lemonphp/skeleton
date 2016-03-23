@@ -49,7 +49,7 @@ class Installation
     protected function compiler(array $matches)
     {
         if (isset($matches[1]) && isset($this->parameters[$matches[1]])) {
-            return quotemeta($this->parameters[$matches[1]]);
+            return json_encode($this->parameters[$matches[1]]);
         }
         return $matches[0];
     }
@@ -156,9 +156,11 @@ class Installation
  */
 $parameters = [
     'PROJECT'     => 'lemonphp/bee',
+    'TYPE'        => 'library',
     'PACKAGE'     => 'lemonphp/bee',
     'NAMESPACE'   => 'Lemon\Bee',
     'DESCRIPTION' => 'Bee project og LemonPHP Team',
+    'KEYWORDS'    => ['demo', 'bee'],
 ];
 
 /**
