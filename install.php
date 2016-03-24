@@ -159,7 +159,7 @@ $parameters = [
     'TYPE'        => 'library',
     'PACKAGE'     => 'lemonphp/bee',
     'NAMESPACE'   => 'Lemon\Bee',
-    'DESCRIPTION' => 'Bee project og LemonPHP Team',
+    'DESCRIPTION' => 'A project of LemonPHP Team, it named Bee',
     'KEYWORDS'    => ['demo', 'bee'],
 ];
 
