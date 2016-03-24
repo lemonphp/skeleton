@@ -49,6 +49,10 @@ class Installation
     protected function compiler(array $matches)
     {
         if (isset($matches[1]) && isset($this->parameters[$matches[1]])) {
+            if (is_string($this->parameters[$matches[1]])) {
+                return quotemeta($this->parameters[$matches[1]]);
+            }
+            // if it is integer or boolean or array or other
             return json_encode($this->parameters[$matches[1]]);
         }
         return $matches[0];
