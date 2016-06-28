@@ -12,12 +12,13 @@ Main features
 
 Requirements
 ---
-
 * php >=5.5.9
 
 Installation
 ---
-// TODO: How to install
+```shell
+$ composer require {{PACKAGE}}:dev-master
+```
 
 Usage
 ---
@@ -40,7 +41,7 @@ If you would like to help take a look at the [list of issues][issues].
 
 License
 ---
-This project is released under the MIT License.
+This project is released under the MIT License.   
 Copyright © 2015-2016 LemonPHP Team.
 
 
